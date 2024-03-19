@@ -2,7 +2,6 @@ package doceria.integracao.usuarioservice.resource;
 
 import doceria.integracao.usuarioservice.domain.Usuario;
 import doceria.integracao.usuarioservice.service.UsuarioService;
-import jakarta.ws.rs.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +21,24 @@ public class UsuarioResource {
         return ResponseEntity.ok(usuarioService.listarUsuarios());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscarUsuarioPorID(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.buscarPorId(id));
+    }
+
     @PostMapping
-    public ResponseEntity<Usuario> salvarUsuario(Usuario usuario) {
+    public ResponseEntity<Usuario> salvarUsuario(@RequestBody Usuario usuario) {
         return ResponseEntity.ok().body(usuarioService.salvar(usuario));
     }
 
     @PutMapping
-    public ResponseEntity<Usuario> atualizar(Usuario usuario) {
+    public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario) {
         return ResponseEntity.ok(usuarioService.atualizar(usuario));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Usuario> remover(Usuario usuario) {
-        return ResponseEntity.ok(usuarioService.atualizar(usuario));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Long id) {
+        usuarioService.deletar(id);
+        return ResponseEntity.ok().build();
     }
 }

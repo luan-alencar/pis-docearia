@@ -1,7 +1,5 @@
 package doceria.integracao.usuarioservice.service;
 
-import doceria.integracao.usuarioservice.domain.Cliente;
-import doceria.integracao.usuarioservice.domain.Colaborador;
 import doceria.integracao.usuarioservice.domain.Usuario;
 import doceria.integracao.usuarioservice.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +18,8 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario buscarPorID(Long id) {
-        return usuarioRepository.findById(id).orElse(null);
+    public Usuario buscarPorId(Long id) {
+        return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
     }
 
     public Usuario salvar(Usuario usuario) {
@@ -37,6 +35,13 @@ public class UsuarioService {
     @SneakyThrows
     public Usuario atualizar(Usuario usuario) {
         Usuario usuarioSalvo = usuarioRepository.findById(usuario.getId()).orElseThrow();
+        usuarioSalvo.setId(usuario.getId());
+        usuarioSalvo.setNome(usuario.getNome());
+        usuarioSalvo.setCpf(usuario.getCpf());
+        usuarioSalvo.setEmail(usuario.getEmail());
+        usuarioSalvo.setId(usuario.getId());
+        usuarioSalvo.setTelefone(usuario.getTelefone());
+        usuarioSalvo.setDataNascimento(usuario.getDataNascimento());
         return usuarioRepository.save(usuarioSalvo);
     }
 
