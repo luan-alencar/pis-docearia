@@ -1,0 +1,7 @@
+version: '2'
+services:
+  pis-postgresql:
+    extends:
+      file: postgres.yml
+      service: pis-postgresql
+    container_name: pis-postgresql
