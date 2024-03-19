@@ -1,4 +1,4 @@
-package doceria.integracao.produtoSerivce.resource;
+package doceria.integracao.usuarioservice.resource;
 
 import doceria.integracao.usuarioservice.domain.Produto;
 import doceria.integracao.usuarioservice.service.ProdutoService;
@@ -13,25 +13,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProdutoResource {
 
-    private final ProdutoService produtoSerivce;
+    private final ProdutoService produtoService;
 
     @GetMapping
     public ResponseEntity<List<Produto>> listarProdutos() {
-        return ResponseEntity.ok(produtoSerivce.listarProdutos());
+        return ResponseEntity.ok(produtoService.listarProdutos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> buscarProdutoPorID(@PathVariable Long id) {
+        return ResponseEntity.ok(produtoService.buscarPorID(id));
     }
 
     @PostMapping
-    public ResponseEntity<Produto> salvarUsuario(Produto produto) {
-        return ResponseEntity.ok().body(produtoSerivce.salvar(produto));
+    public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) {
+        return ResponseEntity.ok().body(produtoService.salvar(produto));
     }
 
     @PutMapping
-    public ResponseEntity<Produto> atualizar(Produto produto) {
-        return ResponseEntity.ok(produtoSerivce.atualizar(produto));
+    public ResponseEntity<Produto> atualizarProduto(@RequestBody Produto produto) {
+        return ResponseEntity.ok(produtoService.atualizar(produto));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Produto> remover(Produto produto) {
-        return ResponseEntity.ok(produtoSerivce.atualizar(produto));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removerProduto(@PathVariable Long id) {
+        produtoService.deletar(id);
+        return ResponseEntity.ok().build();
     }
 }
