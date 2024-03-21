@@ -27,8 +27,12 @@ public class ProdutoService {
 
     public Produto atualizar(Produto produto) {
         Produto produtoSalvo = produtoRepository.findById(produto.getId()).orElseThrow();
+        produtoSalvo.setNome(produto.getNome());
+        produtoSalvo.setPreco(produto.getPreco());
+        produtoSalvo.setCategorias(produto.getCategorias());
         return produtoRepository.save(produtoSalvo);
     }
+
 
     public void deletar(Long id) {
         produtoRepository.deleteById(id);
