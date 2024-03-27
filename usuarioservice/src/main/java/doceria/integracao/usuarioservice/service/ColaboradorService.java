@@ -11,6 +11,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,38 +19,27 @@ public class ColaboradorService {
 
     private final ColaboradorRepository colaboradorRepository;
     private final UsuarioRepository usuarioRepository;
+    private final ColaboradorMapper colaboradorMapper;
 
     public List<UsuarioDTO> listar() {
         List<Colaborador> colaboradores = colaboradorRepository.findAll();
 
-        return null;
+        return colaboradores.stream()
+                .map(ColaboradorMapper.INSTANCE::usuarioToDTO)
+                .collect(Collectors.toList());
     }
-
-    public Usuario buscarPorId(Long id) {
-        return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
-    }
-
-//    public UsuarioDTO salvarColaborador(Colaborador colaborador) {
-//
-//        return usuarioRepository.save(colaborador);
-//    }
-//
-//    public UsuarioDTO salvarCliente(Cliente cliente) {
-//
-//        return usuarioRepository.save(cliente);
-//    }
 
     @SneakyThrows
-    public Usuario atualizar(Usuario usuario) {
-        Usuario usuarioSalvo = usuarioRepository.findById(usuario.getId()).orElseThrow();
-        usuarioSalvo.setId(usuario.getId());
-        usuarioSalvo.setNome(usuario.getNome());
-        usuarioSalvo.setCpf(usuario.getCpf());
-        usuarioSalvo.setEmail(usuario.getEmail());
-        usuarioSalvo.setId(usuario.getId());
-        usuarioSalvo.setTelefone(usuario.getTelefone());
-        usuarioSalvo.setDataNascimento(usuario.getDataNascimento());
-        return usuarioRepository.save(usuarioSalvo);
+    public UsuarioDTO buscarUsuario(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("O usuário não existe."));
+        return colaboradorMapper.INSTANCE.usuarioToDTO(usuario);
+    }
+
+    public UsuarioDTO salvarUsuario(UsuarioDTO dto) {
+        Colaborador colaborador = ColaboradorMapper.INSTANCE.DTOtoColaborador(dto);
+        usuarioRepository.save(colaborador);
+        return ColaboradorMapper.INSTANCE.usuarioToDTO(colaborador);
     }
 
     public void deletar(Long id) {
