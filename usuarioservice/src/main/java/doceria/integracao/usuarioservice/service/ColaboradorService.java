@@ -1,7 +1,11 @@
 package doceria.integracao.usuarioservice.service;
 
+import doceria.integracao.usuarioservice.domain.Cliente;
+import doceria.integracao.usuarioservice.domain.Colaborador;
 import doceria.integracao.usuarioservice.domain.Usuario;
+import doceria.integracao.usuarioservice.repository.ColaboradorRepository;
 import doceria.integracao.usuarioservice.repository.UsuarioRepository;
+import doceria.integracao.usuarioservice.service.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -10,27 +14,30 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioService {
+public class ColaboradorService {
 
+    private final ColaboradorRepository colaboradorRepository;
     private final UsuarioRepository usuarioRepository;
 
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> listar() {
+        List<Colaborador> colaboradores = colaboradorRepository.findAll();
+
+        return null;
     }
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
     }
 
-    public Usuario salvar(Usuario usuario) {
-        usuario.setAdmin(false);
-//        if (usuario instanceof Colaborador) {
-//            // TODO
-//        } else if (usuario instanceof Cliente) {
-//            // TODO
-//        }
-        return usuarioRepository.save(usuario);
-    }
+//    public UsuarioDTO salvarColaborador(Colaborador colaborador) {
+//
+//        return usuarioRepository.save(colaborador);
+//    }
+//
+//    public UsuarioDTO salvarCliente(Cliente cliente) {
+//
+//        return usuarioRepository.save(cliente);
+//    }
 
     @SneakyThrows
     public Usuario atualizar(Usuario usuario) {

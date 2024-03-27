@@ -1,15 +1,16 @@
 package doceria.integracao.usuarioservice.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "colaborador")
-@PrimaryKeyJoinColumn(name = "usuario_id")
 public class Colaborador extends Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     private Boolean gerente;
 }

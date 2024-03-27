@@ -1,9 +1,9 @@
-version: '2'
-services:
-  pis-postgresql:
-    image: postgres:11.5
-    environment:
-      - POSTGRES_USER=pis
-      - POSTGRES_PASSWORD=pis
-    ports:
-      - 5432:5432
+#version: '2'
+#services:
+#  pis-postgresql:
+#    image: postgres:11.5
+#    environment:
+#      - POSTGRES_USER=pis
+#      - POSTGRES_PASSWORD=pis
+#    ports:
+#      - 5432:5432

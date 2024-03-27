@@ -6,8 +6,11 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "cliente")
-@PrimaryKeyJoinColumn(name = "usuario_id")
 public class Cliente extends Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")

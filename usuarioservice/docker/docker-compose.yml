@@ -5,3 +5,9 @@ services:
       file: postgres.yml
       service: pis-postgresql
     container_name: pis-postgresql
+#  mensageria-rabbit:
+#    extends:
+#      file: rabbit.yml
+#      service: rabbit
+#    container_name: mensageria-rabbit
+
