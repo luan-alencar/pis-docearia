@@ -1,6 +1,6 @@
 package doceria.integracao.usuarioservice.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;

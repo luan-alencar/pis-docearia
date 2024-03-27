@@ -1,8 +1,7 @@
 package doceria.integracao.usuarioservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.util.List;

@@ -1,6 +1,8 @@
 package doceria.integracao.usuarioservice.service.mapper;
 
-public interface EntityMapper <D, E> {
+import org.mapstruct.Mapper;
+
+public interface EntityMapper <D, E>{
 
     E toEntity(D dto);
     D toDTO(E entity);

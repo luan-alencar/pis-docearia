@@ -1,8 +1,6 @@
 package doceria.integracao.usuarioservice.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data

@@ -1,15 +1,18 @@
 package doceria.integracao.usuarioservice.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
+
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "cliente")
-@PrimaryKeyJoinColumn(name = "usuario_id")
-public class Cliente extends Usuario {
+public class Cliente extends Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
 }

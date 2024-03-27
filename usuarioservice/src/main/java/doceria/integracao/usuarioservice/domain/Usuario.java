@@ -1,7 +1,8 @@
 package doceria.integracao.usuarioservice.domain;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import doceria.integracao.usuarioservice.service.enums.Roles;
+import javax.persistence.*;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,23 +10,23 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "usuario")
 @Data
-public class Usuario implements Serializable {
+public abstract class Usuario implements Serializable {
+    public static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+    public String nome;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    public String cpf;
 
-    private String nome;
+    public String email;
 
-    private String cpf;
+    public String telefone;
 
-    private String email;
+    public LocalDate dataNascimento;
 
-    private String telefone;
+    @Enumerated(EnumType.STRING)
+    public Roles permissao;
 
-    private LocalDate dataNascimento;
-
-    private Boolean admin;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Endereco endereco;
 }
